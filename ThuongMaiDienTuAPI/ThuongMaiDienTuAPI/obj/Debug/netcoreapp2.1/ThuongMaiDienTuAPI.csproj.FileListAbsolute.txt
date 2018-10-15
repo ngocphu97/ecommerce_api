@@ -26,3 +26,17 @@ D:\Project\PTTKHTDN\my\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\obj\D
 D:\Project\PTTKHTDN\my\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\obj\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.RazorTargetAssemblyInfo.cache
 D:\Project\PTTKHTDN\my\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\obj\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.dll
 D:\Project\PTTKHTDN\my\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\obj\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.pdb
+D:\Project\PTTKHTDN\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\bin\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.deps.json
+D:\Project\PTTKHTDN\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\bin\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.runtimeconfig.json
+D:\Project\PTTKHTDN\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\bin\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.runtimeconfig.dev.json
+D:\Project\PTTKHTDN\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\bin\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.dll
+D:\Project\PTTKHTDN\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\bin\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.pdb
+D:\Project\PTTKHTDN\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\obj\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.csprojAssemblyReference.cache
+D:\Project\PTTKHTDN\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\obj\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.csproj.CoreCompileInputs.cache
+D:\Project\PTTKHTDN\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\obj\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.RazorAssemblyInfo.cache
+D:\Project\PTTKHTDN\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\obj\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.RazorAssemblyInfo.cs
+D:\Project\PTTKHTDN\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\obj\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.AssemblyInfoInputs.cache
+D:\Project\PTTKHTDN\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\obj\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.AssemblyInfo.cs
+D:\Project\PTTKHTDN\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\obj\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.RazorTargetAssemblyInfo.cache
+D:\Project\PTTKHTDN\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\obj\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.dll
+D:\Project\PTTKHTDN\ecommerce_api\ThuongMaiDienTuAPI\ThuongMaiDienTuAPI\obj\Debug\netcoreapp2.1\ThuongMaiDienTuAPI.pdb

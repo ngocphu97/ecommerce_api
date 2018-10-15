@@ -12419,11 +12419,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Project\\PTTKHTDN\\my\\ecommerce_api\\ThuongMaiDienTuAPI\\ThuongMaiDienTuAPI\\ThuongMaiDienTuAPI.csproj",
+      "projectUniqueName": "D:\\Project\\PTTKHTDN\\ecommerce_api\\ThuongMaiDienTuAPI\\ThuongMaiDienTuAPI\\ThuongMaiDienTuAPI.csproj",
       "projectName": "ThuongMaiDienTuAPI",
-      "projectPath": "D:\\Project\\PTTKHTDN\\my\\ecommerce_api\\ThuongMaiDienTuAPI\\ThuongMaiDienTuAPI\\ThuongMaiDienTuAPI.csproj",
+      "projectPath": "D:\\Project\\PTTKHTDN\\ecommerce_api\\ThuongMaiDienTuAPI\\ThuongMaiDienTuAPI\\ThuongMaiDienTuAPI.csproj",
       "packagesPath": "C:\\Users\\shivu\\.nuget\\packages\\",
-      "outputPath": "D:\\Project\\PTTKHTDN\\my\\ecommerce_api\\ThuongMaiDienTuAPI\\ThuongMaiDienTuAPI\\obj\\",
+      "outputPath": "D:\\Project\\PTTKHTDN\\ecommerce_api\\ThuongMaiDienTuAPI\\ThuongMaiDienTuAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
