@@ -7,8 +7,8 @@ namespace ThuongMaiDienTuAPI.Helpers
 {
     public enum UserPermission
     {
-        Admin,
+        Customer,
         Seller,
-        Customer
+        Admin
     }
 }
