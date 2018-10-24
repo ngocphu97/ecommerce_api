@@ -18,6 +18,8 @@ namespace ThuongMaiDienTuAPI.Entities
         public bool CheckMail { get; set; }
         public bool CheckCMND { get; set; }
         public DateTime NgayDK { get; set; }
+
+        public int IdDiaChi { get; set; }
         public DiaChi DiaChi { get; set; }
         [MaxLength(100)]
         public string TenSeller { get; set; }

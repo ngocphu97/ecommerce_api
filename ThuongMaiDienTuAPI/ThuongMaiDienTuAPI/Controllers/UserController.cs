@@ -52,7 +52,7 @@ namespace ThuongMaiDienTuAPI.Controllers
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub,user.TenDN),
-               // new Claim(ClaimTypes.Role,),
+                new Claim(ClaimTypes.Role,user.LoaiUser),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
@@ -61,7 +61,7 @@ namespace ThuongMaiDienTuAPI.Controllers
                 issuer: config["Jwt:Issuer"],
                 audience: config["Jwt:Issuer"],
                 claims: claims,
-                expires: DateTime.Now.AddSeconds(30),
+                expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: creds);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

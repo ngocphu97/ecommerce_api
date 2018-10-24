@@ -16,6 +16,5 @@ namespace ThuongMaiDienTuAPI.Entities
         public bool TrangThai { get; set; }
         [MaxLength(20)]
         public string LoaiUser { get; set; }
-       
     }
 }

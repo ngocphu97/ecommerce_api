@@ -71,6 +71,7 @@ namespace ThuongMaiDienTuAPI
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("TMDTContext")));
             //---------Mapping Interface and Service-----------
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ISanPhamService, SanPhamService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

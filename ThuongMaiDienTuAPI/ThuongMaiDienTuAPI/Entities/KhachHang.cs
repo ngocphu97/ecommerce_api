@@ -15,6 +15,8 @@ namespace ThuongMaiDienTuAPI.Entities
         [MaxLength(13)]
         [Phone]
         public string SDT { get; set; }
+
+        public int IdDiaChi { get; set; }
         public DiaChi DiaChi { get; set; }
         [MaxLength(50)]
         [EmailAddress]
