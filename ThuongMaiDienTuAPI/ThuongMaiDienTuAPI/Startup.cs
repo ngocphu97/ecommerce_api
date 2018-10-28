@@ -72,6 +72,17 @@ namespace ThuongMaiDienTuAPI
             //---------Mapping Interface and Service-----------
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISanPhamService, SanPhamService>();
+            services.AddScoped<IDanhMucSPService, DanhMucSPService>();
+            services.AddScoped<ISlideService, SlideService>();
+            services.AddScoped<IKhachHangService, KhachHangService>();
+            services.AddScoped<ISellerService, SellerService>();
+            services.AddScoped<IDanhGiaService, DanhGiaService>();
+            services.AddScoped<IHoaDonService, HoaDonService>();
+            services.AddScoped<IPageService, PageService>();
+            services.AddScoped<IThoiGianSPHotService, ThoiGianSPHotService>();
+            services.AddScoped<IThongBaoService, ThongBaoService>();
+            services.AddScoped<IThongKeHoaDonService, ThongKeHoaDonService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

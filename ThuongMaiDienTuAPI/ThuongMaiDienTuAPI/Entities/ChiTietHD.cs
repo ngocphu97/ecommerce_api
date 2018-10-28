@@ -9,8 +9,8 @@ namespace ThuongMaiDienTuAPI.Entities
     {
         public int IdHoaDon { get; set; }
         public int IdSanPham { get; set; }
-        public int SoLuong { get; set; }
-        public int Gia { get; set; }
-        public int GiaKM { get; set; }
+        public int? SoLuong { get; set; }
+        public int? Gia { get; set; }
+        public int? GiaKM { get; set; }
     }
 }

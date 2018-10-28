@@ -17,5 +17,12 @@ namespace ThuongMaiDienTuAPI.Dtos.Queries
         public bool? CoSPHome { get; set; } = null;
         public bool? TrangThai { get; set; } = null;
 
+        public int? FromGiaKM { get; set; } = null;
+        public int? ToGiaKM { get; set; } = null;
+
+        public int? FromSoLuong { get; set; } = null;
+        public int? ToSoLuong { get; set; } = null;
+
+        public int? IdDanhMuc { get; set; } = null;
     }
 }

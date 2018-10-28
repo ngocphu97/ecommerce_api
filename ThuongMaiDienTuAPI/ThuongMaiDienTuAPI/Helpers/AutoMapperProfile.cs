@@ -16,6 +16,8 @@ namespace ThuongMaiDienTuAPI.Helpers
         {
             CreateMap<User,UserDto>();
             CreateMap<UserDto,User>();
+            CreateMap<DanhMucSP, DanhMucSPDto>();
+            CreateMap<DanhMucSPDto, DanhMucSP>();
         }
     }
 }

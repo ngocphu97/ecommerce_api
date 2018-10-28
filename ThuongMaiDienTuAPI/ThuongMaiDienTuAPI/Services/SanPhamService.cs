@@ -37,6 +37,10 @@ namespace ThuongMaiDienTuAPI.Services
             {
                 sp = sp.Where(x => x.TrangThai == query.TrangThai);
             }
+            if (query.IdDanhMuc != null)
+            {
+                sp = sp.Where(x => x.IdDanhMuc == query.IdDanhMuc);
+            }
             if (query.CoSPHot != null)
             {
                 sp = sp.Where(x => x.CoSPHot == query.CoSPHot);
@@ -44,6 +48,22 @@ namespace ThuongMaiDienTuAPI.Services
             if (query.CoSPHome != null)
             {
                 sp = sp.Where(x => x.CoSPHome == query.CoSPHome);
+            }
+            if (query.FromGiaKM != null)
+            {
+                sp = sp.Where(x => x.PhanLoaiSP.Any(y => y.GiaKM >= query.FromGiaKM));
+            }
+            if (query.ToGiaKM != null)
+            {
+                sp = sp.Where(x => x.PhanLoaiSP.Any(y => y.GiaKM <= query.ToGiaKM));
+            }
+            if (query.FromSoLuong != null)
+            {
+                sp = sp.Where(x => x.PhanLoaiSP.Any(y => y.SoLuong >= query.FromSoLuong));
+            }
+            if (query.ToSoLuong != null)
+            {
+                sp = sp.Where(x => x.PhanLoaiSP.Any(y => y.SoLuong <= query.ToSoLuong));
             }
             return sp;
         }

@@ -12,6 +12,11 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using ThuongMaiDienTuAPI.Interfaces;
+using ThuongMaiDienTuAPI.Dtos;
+using ThuongMaiDienTuAPI.Dtos.Queries;
+using ThuongMaiDienTuAPI.Entities;
 namespace ThuongMaiDienTuAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -27,11 +32,18 @@ namespace ThuongMaiDienTuAPI.Controllers
             this.config = config;
             this.mapper = mapper;
         }
-        [HttpGet]
         [AllowAnonymous]
-        public IActionResult Get()
+        [HttpGet]
+        [Route("get")]
+        public async Task<IActionResult> Get([FromQuery] UserQuery query)
         {
-            return Ok( "User");
+            dynamic user = await userService.Get(query);
+            object res = new
+            {
+                Total=user.Total,
+                Content= mapper.Map<IEnumerable<UserDto>>(user.Content)
+            };
+            return Ok(res);
         }
 
         [AllowAnonymous]

@@ -6,6 +6,7 @@ using ThuongMaiDienTuAPI.Dtos;
 using ThuongMaiDienTuAPI.Entities;
 using ThuongMaiDienTuAPI.Interfaces;
 using ThuongMaiDienTuAPI.Helpers;
+using ThuongMaiDienTuAPI.Dtos.Queries;
 using Microsoft.EntityFrameworkCore;
 
 namespace ThuongMaiDienTuAPI.Services
@@ -17,6 +18,35 @@ namespace ThuongMaiDienTuAPI.Services
         {
             this.db = db;
         }
+        public async Task<object> Get(UserQuery query)
+        {
+            var users = Sorting<User>.Get(Filtering(db.User, query), query);
+            return new
+            {
+                Total = users.Count(),
+                Content = await Paging<User>.Get(users, query).ToListAsync()
+            };
+        }
+
+        private IQueryable<User> Filtering(IQueryable<User> users,UserQuery query)
+        {
+            if (query.TenDN != null)
+            {
+                users = from x in users
+                        where x.TenDN.Contains(query.TenDN)
+                        select x;
+            }
+            if (query.LoaiUser != null)
+            {
+                users = users.Where(x => x.LoaiUser == query.LoaiUser);
+            }
+            if (query.TrangThai != null)
+            {
+                users = users.Where(x => x.TrangThai == query.TrangThai);
+            }
+            return users;
+        }
+
         public async Task<User> Get(int id)
         {
             return await db.User.FindAsync(id);

@@ -8,7 +8,7 @@ namespace ThuongMaiDienTuAPI.Entities
     public class Slide
     {
         [Key]
-        public int IdSide { get; set; }
+        public int IdSlide { get; set; }
         public string Hinh { get; set; }
         public string NoiDung { get; set; }
         public string URL { get; set; }

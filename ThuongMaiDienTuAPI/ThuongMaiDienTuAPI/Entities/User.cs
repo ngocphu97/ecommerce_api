@@ -9,12 +9,12 @@ namespace ThuongMaiDienTuAPI.Entities
     {
         [Key]
         public int IdUser { get; set; }
-        [MaxLength(100)]
+       // [MaxLength(100)]
         public string TenDN { get; set; }
-        [MaxLength(100)]
+       // [MaxLength(100)]
         public string Matkhau { get; set; }
         public bool TrangThai { get; set; }
-        [MaxLength(20)]
+       // [MaxLength(20)]
         public string LoaiUser { get; set; }
     }
 }

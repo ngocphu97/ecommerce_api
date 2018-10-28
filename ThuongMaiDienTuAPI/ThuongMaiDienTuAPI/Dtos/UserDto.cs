@@ -9,7 +9,7 @@ namespace ThuongMaiDienTuAPI.Dtos
     {
         public int IdUser { get; set; }
         public string TenDN { get; set; }
-        public string TrangThai { get; set; }
+        public bool TrangThai { get; set; }
         public string LoaiUser { get; set; }
     }
 }
