@@ -8,6 +8,7 @@ namespace ThuongMaiDienTuAPI.Interfaces
 {
     public interface IHoaDonService
     {
-        Task<object> Get(HoaDonQuery query);
+        Task<object> GetByCustomer(int idUser,HoaDonQuery query);
+        Task<object> GetBySeller(int idSeller,HoaDonQuery query);
     }
 }

@@ -38,6 +38,10 @@ namespace ThuongMaiDienTuAPI.Services
             {
                 danhGia = danhGia.Where(x => x.Danhgia <= query.ToDanhGia);
             }
+            if (query.IdSanPham != null)
+            {
+                danhGia = danhGia.Where(x => x.IdSanPham == query.IdSanPham);
+            }
             return danhGia;
         }
     }

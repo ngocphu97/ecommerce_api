@@ -18,6 +18,7 @@ namespace ThuongMaiDienTuAPI.Entities
         public string GhiChu { get; set; }
         [MaxLength(100)]
         public string TenKH { get; set; }
+        public int IdSeller { get; set; }
         //DiaChiKH? & DiaChi string?
         [MaxLength(50)]
         [EmailAddress]

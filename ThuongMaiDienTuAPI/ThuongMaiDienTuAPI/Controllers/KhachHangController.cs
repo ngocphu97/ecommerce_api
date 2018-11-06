@@ -23,12 +23,20 @@ namespace ThuongMaiDienTuAPI.Controllers
             this.mapper = mapper;
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("get")]
         public async Task<IActionResult> Get([FromQuery] KhachHangQuery query)
         {
             return Ok(await khachHangService.Get(query));
+        }
+        [AllowAnonymous]
+        [Route("getbyiduser")]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdUser(int idUser)
+        {
+            return Ok(await khachHangService.GetByIdUser(idUser));
         }
     }
 }

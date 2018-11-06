@@ -3,24 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-namespace ThuongMaiDienTuAPI.Entities
+namespace ThuongMaiDienTuAPI.Dtos
 {
-    public class KhachHang
+    public class RegisterDto
     {
-        [Key]
-        public int IdKhachHang { get; set; }
         [MaxLength(100)]
-        public string TenKH { get; set; }
+        public string TenKh { get; set; }
         [MaxLength(13)]
         [Phone]
         public string SDT { get; set; }
-
-        public int IdDiaChi { get; set; }
-        public DiaChi DiaChi { get; set; }
+        public DiaChiDto Diachi { get; set; }
         [MaxLength(50)]
         [EmailAddress]
         public string Mail { get; set; }
-        public double DanhGia { get; set; }
-        public int Diem { get; set; }
+        [MaxLength(100)]
+        public string TenDN { get; set; }
+        [MaxLength(100)]
+        public string MatKhau { get; set; }
     }
 }

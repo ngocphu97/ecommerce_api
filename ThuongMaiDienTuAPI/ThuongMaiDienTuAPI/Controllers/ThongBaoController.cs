@@ -24,7 +24,8 @@ namespace ThuongMaiDienTuAPI.Controllers
         [Route("get")]
         public async Task<IActionResult> Get([FromQuery] ThongBaoQuery query)
         {
-            return Ok(await thongBaoService.Get(query));
+            int idUser = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "IdUser").Value);
+            return Ok(await thongBaoService.Get(idUser,query));
         }
     }
 }

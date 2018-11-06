@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-namespace ThuongMaiDienTuAPI.Entities
+namespace ThuongMaiDienTuAPI.Dtos
 {
-    public class CauHinh
+    public class CauHinhDto
     {
-        [Key]
-        public int IdCauHinh { get; set; }
         [Required]
         public string ThuongHieu { get; set; }
         [Required]

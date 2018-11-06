@@ -29,5 +29,13 @@ namespace ThuongMaiDienTuAPI.Controllers
         {
             return Ok(await sellerService.Get(query));
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("getbyiduser")]
+        public async Task<IActionResult> GetByIdUser(int idUser)
+        {
+            return Ok(await sellerService.GetByIdUser(idUser));
+        }
     }
 }

@@ -26,6 +26,15 @@ namespace ThuongMaiDienTuAPI.Services
                 Content = await Paging<Seller>.Get(sellers, query).Include(x=>x.DiaChi).ToListAsync()
             };
         }
+
+        public async Task<Seller> GetByIdUser(int idUser)
+        {
+            User user = (await db.User.FindAsync(idUser));
+            if (user.LoaiUser != ConstantVariable.UserPermission.SELLER)
+                return null;
+            return await db.Seller.FindAsync(user.IdSeller);
+        }
+
         private IQueryable<Seller> Filtering(IQueryable<Seller> sellers,SellerQuery query)
         {
             if (query.TenSeller != null)

@@ -16,6 +16,18 @@ namespace ThuongMaiDienTuAPI.Services
         {
             this.db = db;
         }
+
+        public async Task Add(int idSeller,SanPham sanPham)
+        {
+            sanPham.CoSPHome = sanPham.CoSPHot = false;
+            sanPham.NgayTao = DateTime.Now;
+            sanPham.TrangThai = true;
+            sanPham.SLXem = 0;
+            sanPham.IdSeller = idSeller;
+            await db.SanPham.AddAsync(sanPham);
+            await db.SaveChangesAsync();
+        }
+
         public async Task<object> Get(SanPhamQuery query)
         {
             var sanpham = Sorting<SanPham>.Get(Filtering(db.SanPham, query), query);
@@ -27,6 +39,10 @@ namespace ThuongMaiDienTuAPI.Services
         }
         private IQueryable<SanPham> Filtering(IQueryable<SanPham> sp,SanPhamQuery query)
         {
+            if (query.IdSeller != null)
+            {
+                sp = sp.Where(x => x.IdSeller == query.IdSeller);
+            }
             if (query.TenSP != null)
             {
                 sp = from x in sp

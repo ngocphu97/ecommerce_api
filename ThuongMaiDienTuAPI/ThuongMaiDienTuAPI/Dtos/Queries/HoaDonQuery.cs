@@ -13,6 +13,7 @@ namespace ThuongMaiDienTuAPI.Dtos.Queries
         public string PhuongThucTT { get; set; } = null;
         public string TinhTrangTT { get; set; } = null;
         public int? IdUser { get; set; } = null;
+        public int? IdSeller { get; set; } = null;
         public bool? TrangThai { get; set; } = null;
 
         public int PageSize { get; set; } = 20;

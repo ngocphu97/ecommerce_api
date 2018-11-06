@@ -18,9 +18,9 @@ namespace ThuongMaiDienTuAPI.Services
             this.db = db;
         }
 
-        public async Task<object> Get(ThongBaoQuery query)
+        public async Task<object> Get(int idUser,ThongBaoQuery query)
         {
-            var thongBao = Sorting<ThongBao>.Get(Filtering(db.ThongBao, query), query);
+            var thongBao = Sorting<ThongBao>.Get(Filtering(db.ThongBao.Where(x=>x.IdUser==idUser), query), query);
             return new
             {
                 Total = thongBao.Count(),

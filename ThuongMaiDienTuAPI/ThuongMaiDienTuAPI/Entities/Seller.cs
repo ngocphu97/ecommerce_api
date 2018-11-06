@@ -9,7 +9,6 @@ namespace ThuongMaiDienTuAPI.Entities
     {
         [Key]
         public int IdSeller { get; set; }
-        public int IdUser { get; set; }
         [MaxLength(20)]
         public string CMND { get; set; }
         [MaxLength(50)]

@@ -17,6 +17,9 @@ using ThuongMaiDienTuAPI.Interfaces;
 using ThuongMaiDienTuAPI.Dtos;
 using ThuongMaiDienTuAPI.Dtos.Queries;
 using ThuongMaiDienTuAPI.Entities;
+using ThuongMaiDienTuAPI.Helpers;
+using System.Diagnostics;
+
 namespace ThuongMaiDienTuAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -32,7 +35,7 @@ namespace ThuongMaiDienTuAPI.Controllers
             this.config = config;
             this.mapper = mapper;
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet]
         [Route("get")]
         public async Task<IActionResult> Get([FromQuery] UserQuery query)
@@ -52,7 +55,7 @@ namespace ThuongMaiDienTuAPI.Controllers
         public async Task<IActionResult> Login([FromBody]LoginDto login)
         {
             var user = await userService.Login(login);
-            if (user != null)
+            if (user != null && user.TrangThai == true) 
             {
                 return Ok(BuildToken(mapper.Map<UserDto>(user)));
             }
@@ -61,12 +64,22 @@ namespace ThuongMaiDienTuAPI.Controllers
 
         private string BuildToken(UserDto user)
         {
+            Claim newClaim = null;
+            if(user.LoaiUser==ConstantVariable.UserPermission.SELLER)
+            {
+                newClaim = new Claim("IdSeller", user.IdSeller.ToString());
+            }
+
             var claims = new[]
             {
+                new Claim("IdUser",user.IdUser.ToString()),
                 new Claim(JwtRegisteredClaimNames.Sub,user.TenDN),
                 new Claim(ClaimTypes.Role,user.LoaiUser),
+                new Claim("IdCustomer",user.IdKhachHang.ToString()),
+                newClaim,
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
             };
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(
@@ -77,5 +90,25 @@ namespace ThuongMaiDienTuAPI.Controllers
                 signingCredentials: creds);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("add")]
+        public async Task<IActionResult> Add([FromBody] RegisterDto register)
+        {
+            bool check = ModelState.IsValid;
+            if (check)
+            {
+                KhachHang khachHang = mapper.Map<KhachHang>(register);
+                User user = mapper.Map<User>(register);
+                bool result = await userService.Add(khachHang, user);
+                if (result)
+                {
+                    return Ok();
+                }
+            }
+            return BadRequest();
+        }
+
     }
 }

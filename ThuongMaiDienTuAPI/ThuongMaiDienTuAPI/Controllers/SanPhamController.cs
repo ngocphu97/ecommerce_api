@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using ThuongMaiDienTuAPI.Interfaces;
 using ThuongMaiDienTuAPI.Dtos;
 using ThuongMaiDienTuAPI.Dtos.Queries;
+using ThuongMaiDienTuAPI.Entities;
+
 namespace ThuongMaiDienTuAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -28,5 +30,18 @@ namespace ThuongMaiDienTuAPI.Controllers
         {
             return Ok(await sanPhamService.Get(query));
         }
+
+        [HttpPost]
+        [Route("add")]
+        [Authorize(Roles ="Seller")]
+        public async Task<IActionResult> Add([FromBody]SanPhamDto sanPhamDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+            int idSeller = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "IdSeller").Value);
+            await sanPhamService.Add(idSeller,mapper.Map<SanPham>(sanPhamDto));
+            return Ok();
+        }
+
     }
 }

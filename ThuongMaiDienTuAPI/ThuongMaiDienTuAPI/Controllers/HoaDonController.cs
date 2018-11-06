@@ -10,6 +10,7 @@ using ThuongMaiDienTuAPI.Dtos;
 using ThuongMaiDienTuAPI.Dtos.Queries;
 namespace ThuongMaiDienTuAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class HoaDonController : Controller
     {
@@ -21,10 +22,18 @@ namespace ThuongMaiDienTuAPI.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
-        [Route("get")]
-        public async Task<IActionResult> Get([FromQuery] HoaDonQuery query)
+        [Route("getbyuser")]
+        public async Task<IActionResult> GetByUser([FromQuery] HoaDonQuery query)
         {
-            return Ok(await hoaDonService.Get(query));
+            int idCustomer = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "IdUser").Value);
+            return Ok(await hoaDonService.GetByCustomer(idCustomer,query));
+        }
+        [HttpGet]
+        [Route("getbyseller")]
+        public async Task<IActionResult> GetBySeller([FromQuery] HoaDonQuery query)
+        {
+            int idSeller = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "IdSeller").Value);
+            return Ok(await hoaDonService.GetBySeller(idSeller, query));
         }
     }
 }

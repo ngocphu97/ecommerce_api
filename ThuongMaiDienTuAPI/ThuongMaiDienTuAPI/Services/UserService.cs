@@ -8,7 +8,7 @@ using ThuongMaiDienTuAPI.Interfaces;
 using ThuongMaiDienTuAPI.Helpers;
 using ThuongMaiDienTuAPI.Dtos.Queries;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.EntityFrameworkCore.Storage;
 namespace ThuongMaiDienTuAPI.Services
 {
     public class UserService : IUserService
@@ -63,6 +63,31 @@ namespace ThuongMaiDienTuAPI.Services
             if (user == null||user.Matkhau!=Encryptor.MD5Hash(login.Matkhau))
                 return null;
             return user;
+        }
+
+        public async Task<bool> Add(KhachHang khachHang, User user)
+        {
+            using(IDbContextTransaction transaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    await db.KhachHang.AddAsync(khachHang);
+                    await db.SaveChangesAsync();
+                    user.TrangThai = true;
+                    user.LoaiUser = ConstantVariable.UserPermission.CUSTOMER;
+                    user.IdKhachHang = khachHang.IdKhachHang;
+                    await db.User.AddAsync(user);
+                    await db.SaveChangesAsync();
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+
         }
     }
 }

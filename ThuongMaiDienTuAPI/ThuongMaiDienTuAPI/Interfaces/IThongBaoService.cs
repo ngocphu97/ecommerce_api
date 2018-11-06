@@ -8,6 +8,6 @@ namespace ThuongMaiDienTuAPI.Interfaces
 {
     public interface IThongBaoService
     {
-        Task<object> Get(ThongBaoQuery query);
+        Task<object> Get(int idUser,ThongBaoQuery query);
     }
 }

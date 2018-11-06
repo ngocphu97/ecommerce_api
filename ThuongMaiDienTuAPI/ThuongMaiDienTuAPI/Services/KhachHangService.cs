@@ -64,5 +64,11 @@ namespace ThuongMaiDienTuAPI.Services
             }
             return kh;
         }
+
+        public async Task<KhachHang> GetByIdUser(int idUser)
+        {
+            int idKhachHang = (await db.User.FindAsync(idUser)).IdKhachHang;
+            return await db.KhachHang.FindAsync(idKhachHang);
+        }
     }
 }

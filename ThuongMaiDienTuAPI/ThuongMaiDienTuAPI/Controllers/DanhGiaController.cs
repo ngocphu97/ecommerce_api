@@ -11,6 +11,7 @@ using ThuongMaiDienTuAPI.Dtos.Queries;
 namespace ThuongMaiDienTuAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class DanhGiaController : Controller
     {
         private IDanhGiaService danhGiaService;
@@ -22,6 +23,7 @@ namespace ThuongMaiDienTuAPI.Controllers
         }
         [HttpGet]
         [Route("get")]
+        [AllowAnonymous]
         public async Task<IActionResult> Get([FromQuery] DanhGiaQuery query)
         {
             return Ok(await danhGiaService.Get(query));

@@ -18,6 +18,10 @@ namespace ThuongMaiDienTuAPI.Helpers
             CreateMap<UserDto,User>();
             CreateMap<DanhMucSP, DanhMucSPDto>();
             CreateMap<DanhMucSPDto, DanhMucSP>();
+            CreateMap<DiaChi, DiaChiDto>();
+            CreateMap<DiaChiDto, DiaChi>();
+            CreateMap<RegisterDto, User>();
+            CreateMap<RegisterDto, KhachHang>();
         }
     }
 }

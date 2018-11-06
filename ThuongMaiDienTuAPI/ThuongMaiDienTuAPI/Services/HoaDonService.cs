@@ -18,19 +18,34 @@ namespace ThuongMaiDienTuAPI.Services
             this.db = db;
         }
 
-        public async Task<object> Get(HoaDonQuery query)
+        public async Task<object> GetByCustomer(int idUser,HoaDonQuery query)
         {
-            var hoaDon = Sorting<HoaDon>.Get(Filtering(db.HoaDon, query), query);
+            var hoaDon = Sorting<HoaDon>.Get(Filtering(db.HoaDon.Where(x=>x.IdUser==idUser), query), query);
             return new {
                 Total = hoaDon.Count(),
                 Content= await Paging<HoaDon>.Get(hoaDon,query).Include(x=>x.ChiTietHD).ToListAsync()
             };
         }
-        private IQueryable<HoaDon> Filtering(IQueryable<HoaDon> hoaDon,HoaDonQuery query)
+
+        public async Task<object> GetBySeller(int idSeller, HoaDonQuery query)
+        {
+            var hoaDon = Sorting<HoaDon>.Get(Filtering(db.HoaDon.Where(x=>x.IdSeller==idSeller), query), query);
+            return new
+            {
+                Total = hoaDon.Count(),
+                Content = await Paging<HoaDon>.Get(hoaDon, query).Include(x => x.ChiTietHD).ToListAsync()
+            };
+        }
+
+        private IQueryable<HoaDon> Filtering(IQueryable<HoaDon> hoaDon, HoaDonQuery query)
         {
             if (query.IdUser != null)
             {
                 hoaDon = hoaDon.Where(x => x.IdHoaDon == query.IdUser);
+            }
+            if (query.IdSeller != null)
+            {
+                hoaDon = hoaDon.Where(x => x.IdSeller == query.IdSeller);
             }
             if (query.TenKH != null)
             {
