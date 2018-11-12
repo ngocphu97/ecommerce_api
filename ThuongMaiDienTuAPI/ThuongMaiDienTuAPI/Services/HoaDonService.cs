@@ -152,6 +152,7 @@ namespace ThuongMaiDienTuAPI.Services
                     dictionary[idSeller].TongTien += ((int)chiTietHD.Gia * (int)chiTietHD.SoLuong);
             }
             List<HoaDon> list = new List<HoaDon>();
+            List<KeyValuePair<int, int>> listThongBao=new List<KeyValuePair<int, int>>();
             foreach(var i in dictionary)
             {
                 foreach(var j in i.Value.ChiTietHD)
@@ -160,16 +161,19 @@ namespace ThuongMaiDienTuAPI.Services
                     phanLoaiSP.SoLuong-=(int)j.SoLuong;
                     if (phanLoaiSP.SoLuong == 0)
                     {
-                        //-------------Thong bao het hang-----------------
-                        ThongBaoService thongBaoService = new ThongBaoService(db);
                         int idUserSeller = (await db.User.Where(x => x.IdSeller == i.Value.IdSeller).FirstOrDefaultAsync()).IdUser;
-                        await thongBaoService.SendForEmptyProduct(idUserSeller, j.IdPhanLoaiSP);
+                        listThongBao.Add(new KeyValuePair<int, int>(idUserSeller,j.IdPhanLoaiSP));
                     }
                 }
                 await db.HoaDon.AddAsync(i.Value);
                 list.Add(i.Value);
             }
             await db.SaveChangesAsync();
+            ThongBaoService thongBaoService = new ThongBaoService(db);
+            foreach(var i in listThongBao)
+            {
+                await thongBaoService.SendForEmptyProduct(i.Key, i.Value);
+            }
             return new
             {
                 Total = list.Count(),
