@@ -24,7 +24,7 @@ namespace ThuongMaiDienTuAPI.Controllers
         }
 
         //[AllowAnonymous]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "ADMIN")]
         [HttpGet]
         [Route("get")]
         public async Task<IActionResult> Get([FromQuery] KhachHangQuery query)

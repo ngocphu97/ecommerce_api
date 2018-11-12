@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using ThuongMaiDienTuAPI.Interfaces;
 using ThuongMaiDienTuAPI.Dtos;
 using ThuongMaiDienTuAPI.Dtos.Queries;
+using ThuongMaiDienTuAPI.Entities;
+using ThuongMaiDienTuAPI.Helpers;
 namespace ThuongMaiDienTuAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -31,11 +33,35 @@ namespace ThuongMaiDienTuAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet]
+        [HttpGet("{id}")]
         [Route("getbyiduser")]
         public async Task<IActionResult> GetByIdUser(int idUser)
         {
             return Ok(await sellerService.GetByIdUser(idUser));
         }
+
+        [Authorize(Roles = "CUSTOMER")]
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> Register([FromBody]SellerDto seller)
+        {
+            int idUser = User.GetIdUser();
+            bool res = await sellerService.Register(idUser, mapper.Map<Seller>(seller));
+            if (!res)
+                return BadRequest();
+            return Ok();
+        }
+        [Authorize(Roles = "CUSTOMER")]
+        [HttpGet("{code}")]
+        [Route("verifymail")]
+        public async Task<IActionResult> VerifyMail(string code)
+        {
+            int idUser = User.GetIdUser();
+            bool res = await sellerService.VerifyMail(idUser, code);
+            if (!res)
+                return BadRequest();
+            return Ok();
+        }
+
     }
 }

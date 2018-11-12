@@ -7,6 +7,8 @@ using ThuongMaiDienTuAPI.Interfaces;
 using ThuongMaiDienTuAPI.Entities;
 using ThuongMaiDienTuAPI.Helpers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+
 namespace ThuongMaiDienTuAPI.Services
 {
     public class SanPhamService : ISanPhamService
@@ -17,15 +19,51 @@ namespace ThuongMaiDienTuAPI.Services
             this.db = db;
         }
 
-        public async Task Add(int idSeller,SanPham sanPham)
+        public async Task<bool> Add(int idSeller,SanPham sanPham)
         {
-            sanPham.CoSPHome = sanPham.CoSPHot = false;
-            sanPham.NgayTao = DateTime.Now;
-            sanPham.TrangThai = true;
-            sanPham.SLXem = 0;
-            sanPham.IdSeller = idSeller;
-            await db.SanPham.AddAsync(sanPham);
+
+            using (IDbContextTransaction transaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    sanPham.CoSPHome = sanPham.CoSPHot = false;
+                    sanPham.NgayTao = DateTime.Now;
+                    sanPham.TrangThai = true;
+                    sanPham.SLXem = 0;
+                    sanPham.IdSeller = idSeller;
+                    await db.SanPham.AddAsync(sanPham);
+                    await db.SaveChangesAsync();
+                    sanPham.TenKhac = sanPham.TenSP.ConvertToUnSign3().Replace(' ', '-') + ":" + sanPham.IdSanPham.ToString();
+                    await db.SaveChangesAsync();
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+        }
+
+        public async Task<bool> Block(int idSeller,int idSanPham)
+        {
+            SanPham sanPham = await db.SanPham.FindAsync(idSanPham);
+            if (sanPham == null || sanPham.IdSeller != idSeller)
+                return false;
+            sanPham.TrangThai = false;
             await db.SaveChangesAsync();
+            return false;
+        }
+
+        public async Task<bool> Delete(int idSeller,int idSanPham)
+        {
+            SanPham sanPham = await db.SanPham.Where(x => x.IdSanPham == idSanPham).Include(x => x.PhanLoaiSP).FirstOrDefaultAsync();
+            if (sanPham == null || sanPham.IdSeller != idSeller)
+                return false;
+            db.SanPham.Remove(sanPham);
+            await db.SaveChangesAsync();
+            return true;
         }
 
         public async Task<object> Get(SanPhamQuery query)
@@ -37,6 +75,17 @@ namespace ThuongMaiDienTuAPI.Services
                 Content = await Paging<SanPham>.Get(sanpham, query).Include(x=>x.CauHinh).Include(x=>x.PhanLoaiSP).ToListAsync()
             };
         }
+
+        public async Task<object> Get(int idSeller, SanPhamQuery query)
+        {
+            var sanpham = Sorting<SanPham>.Get(Filtering(db.SanPham.Where(x=>x.IdSeller==idSeller), query), query);
+            return new
+            {
+                Total = sanpham.Count(),
+                Content = await Paging<SanPham>.Get(sanpham, query).Include(x => x.CauHinh).Include(x => x.PhanLoaiSP).ToListAsync()
+            };
+        }
+
         private IQueryable<SanPham> Filtering(IQueryable<SanPham> sp,SanPhamQuery query)
         {
             if (query.IdSeller != null)

@@ -12,5 +12,7 @@ namespace ThuongMaiDienTuAPI.Interfaces
     {
         Task<object> Get(SellerQuery query);
         Task<Seller> GetByIdUser(int idUser);
-    }
+        Task<bool> Register(int idUser, Seller seller);
+        Task<bool> VerifyMail(int idUser, string code);
+    } 
 }

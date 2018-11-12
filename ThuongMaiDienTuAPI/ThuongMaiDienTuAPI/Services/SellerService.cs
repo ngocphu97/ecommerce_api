@@ -8,6 +8,8 @@ using ThuongMaiDienTuAPI.Interfaces;
 using ThuongMaiDienTuAPI.Entities;
 using ThuongMaiDienTuAPI.Helpers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+
 namespace ThuongMaiDienTuAPI.Services
 {
     public class SellerService : ISellerService
@@ -17,6 +19,7 @@ namespace ThuongMaiDienTuAPI.Services
         {
             this.db = db;
         }
+
         public async Task<object> Get(SellerQuery query)
         {
             var sellers = Sorting<Seller>.Get(Filtering(db.Seller, query), query);
@@ -33,6 +36,51 @@ namespace ThuongMaiDienTuAPI.Services
             if (user.LoaiUser != ConstantVariable.UserPermission.SELLER)
                 return null;
             return await db.Seller.FindAsync(user.IdSeller);
+        }
+
+        public async Task<bool> Register(int idUser, Seller seller)
+        {
+            using (IDbContextTransaction transaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    User user = await db.User.FindAsync(idUser);
+                    seller.CheckCMND = true;
+                    seller.CheckMail = false;
+                    seller.NgayDK = DateTime.Now;
+                    await db.Seller.AddAsync(seller);
+                    await db.SaveChangesAsync();
+                    user.IdSeller = seller.IdSeller;
+                    await db.SaveChangesAsync();
+                    //-----------Send Mail-----------------
+                    string code = StringExtensions.RandomString(30);
+                    await db.XacNhanMail.AddAsync(new XacNhanMail{ IdUser=idUser, Code=code });
+                    await db.SaveChangesAsync();
+                    EmailSender.SendVerifyMail(seller.Mail, code);
+                    //-------------------------------------
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+        }
+
+        public async Task<bool> VerifyMail(int idUser, string code)
+        {
+            XacNhanMail xacNhanMail= await db.XacNhanMail.FindAsync(idUser);
+            if (xacNhanMail != null && xacNhanMail.Code == code)
+            {
+                User user= await db.User.FindAsync(idUser);
+                user.LoaiUser = ConstantVariable.UserPermission.SELLER;
+                db.XacNhanMail.Remove(xacNhanMail);
+                await db.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
         private IQueryable<Seller> Filtering(IQueryable<Seller> sellers,SellerQuery query)

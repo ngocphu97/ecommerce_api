@@ -57,7 +57,7 @@ namespace ThuongMaiDienTuAPI.Controllers
             var user = await userService.Login(login);
             if (user != null && user.TrangThai == true) 
             {
-                return Ok(BuildToken(mapper.Map<UserDto>(user)));
+                return Ok(new { Token = BuildToken(mapper.Map<UserDto>(user)) });
             }
             return Unauthorized();
         }
@@ -96,16 +96,12 @@ namespace ThuongMaiDienTuAPI.Controllers
         [Route("add")]
         public async Task<IActionResult> Add([FromBody] RegisterDto register)
         {
-            bool check = ModelState.IsValid;
-            if (check)
+            KhachHang khachHang = mapper.Map<KhachHang>(register);
+            User user = mapper.Map<User>(register);
+            bool result = await userService.Add(khachHang, user);
+            if (result)
             {
-                KhachHang khachHang = mapper.Map<KhachHang>(register);
-                User user = mapper.Map<User>(register);
-                bool result = await userService.Add(khachHang, user);
-                if (result)
-                {
-                    return Ok();
-                }
+                return Ok();
             }
             return BadRequest();
         }

@@ -17,6 +17,27 @@ namespace ThuongMaiDienTuAPI.Services
         {
             this.db = db;
         }
+        private async Task Add(int idUser,string content)
+        {
+            ThongBao thongBao = new ThongBao
+            {
+                IdUser = idUser,
+                Ngay = DateTime.Now,
+                NoiDung = content,
+                TinhTrang = ConstantVariable.NotifyStatus.UNSEEN
+            };
+            await db.ThongBao.AddAsync(thongBao);
+            await db.SaveChangesAsync();
+        }
+        public async Task CheckSeen(int idUser, int idThongBao)
+        {
+            ThongBao thongBao = await db.ThongBao.FindAsync(idThongBao);
+            if (thongBao != null && thongBao.IdUser == idUser)
+            {
+                thongBao.TinhTrang = ConstantVariable.NotifyStatus.SEEN;
+                await db.SaveChangesAsync();
+            }
+        }
 
         public async Task<object> Get(int idUser,ThongBaoQuery query)
         {
@@ -27,6 +48,16 @@ namespace ThuongMaiDienTuAPI.Services
                 Content = await Paging<ThongBao>.Get(thongBao, query).ToListAsync()
             };
         }
+
+        public async Task SendForEmptyProduct(int idUser, int idPhanLoaiSP)
+        {
+            PhanLoaiSP phanLoaiSP = await db.PhanLoaiSP.FindAsync(idPhanLoaiSP);
+            SanPham sanPham = await db.SanPham.FindAsync(phanLoaiSP.IdSanPham);
+
+            string content = "Sản phẩm " + sanPham.TenSP + " - " + phanLoaiSP.Mau + " đã hết hàng.";
+            await Add(idUser, content);
+        }
+
         private IQueryable<ThongBao> Filtering(IQueryable<ThongBao> thongBao,ThongBaoQuery query)
         {
             if (query.TinhTrang != null)

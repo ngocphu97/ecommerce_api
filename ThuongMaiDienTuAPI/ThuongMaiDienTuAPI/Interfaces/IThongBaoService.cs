@@ -9,5 +9,7 @@ namespace ThuongMaiDienTuAPI.Interfaces
     public interface IThongBaoService
     {
         Task<object> Get(int idUser,ThongBaoQuery query);
+        Task SendForEmptyProduct(int idUser, int idPhanLoaiSP);
+        Task CheckSeen(int idUser, int idThongBao);
     }
 }

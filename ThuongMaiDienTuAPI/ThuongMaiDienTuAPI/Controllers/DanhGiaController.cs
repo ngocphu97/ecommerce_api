@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using ThuongMaiDienTuAPI.Interfaces;
 using ThuongMaiDienTuAPI.Dtos;
 using ThuongMaiDienTuAPI.Dtos.Queries;
+using ThuongMaiDienTuAPI.Entities;
+using ThuongMaiDienTuAPI.Helpers;
 namespace ThuongMaiDienTuAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -27,6 +29,15 @@ namespace ThuongMaiDienTuAPI.Controllers
         public async Task<IActionResult> Get([FromQuery] DanhGiaQuery query)
         {
             return Ok(await danhGiaService.Get(query));
+        }
+        [HttpPost]
+        [Route("add")]
+        public async Task<IActionResult> Add([FromBody] DanhGiaDto danhGiaDto)
+        {
+            int idUser = User.GetIdUser();
+            if (await danhGiaService.Add(idUser, mapper.Map<DanhGia>(danhGiaDto)))
+                return Ok();
+            return BadRequest();
         }
     }
 }

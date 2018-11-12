@@ -26,6 +26,38 @@ namespace ThuongMaiDienTuAPI.Services
                 Content= await Paging<HoaDon>.Get(hoaDon,query).Include(x=>x.ChiTietHD).ToListAsync()
             };
         }
+        private int GetGiaGoc(int idPhanLoaiSP)
+        {
+            return db.PhanLoaiSP.Find(idPhanLoaiSP).GiaGoc;
+        }
+        private async Task<object> GetBySeller(IQueryable<HoaDon> hoaDon)
+        {
+            return await hoaDon.Select(x => new
+            {
+                IdHoaDon = x.IdHoaDon,
+                IdSeller = x.IdSeller,
+                IdUser = x.IdUser,
+                TenKH = x.TenKH,
+                DiaChiKH = x.DiaChiKH,
+                GhiChu = x.GhiChu,
+                SDT = x.SDT,
+                Mail = x.Mail,
+                Ngay = x.Ngay,
+                TongTien = x.TongTien,
+                PhuongThucTT = x.PhuongThucTT,
+                TinhTrangTT = x.TinhTrangTT,
+                TrangThai = x.TrangThai,
+                ChiTietHD = x.ChiTietHD.Select(y => new
+                {
+                    IdHoaDon = y.IdHoaDon,
+                    IdPhanLoaiSP = y.IdPhanLoaiSP,
+                    Gia = y.Gia,
+                    GiaKM = y.GiaKM,
+                    GiaGoc = GetGiaGoc(y.IdPhanLoaiSP),
+                    SoLuong = y.SoLuong
+                })
+            }).ToListAsync();
+        }
 
         public async Task<object> GetBySeller(int idSeller, HoaDonQuery query)
         {
@@ -33,7 +65,7 @@ namespace ThuongMaiDienTuAPI.Services
             return new
             {
                 Total = hoaDon.Count(),
-                Content = await Paging<HoaDon>.Get(hoaDon, query).Include(x => x.ChiTietHD).ToListAsync()
+                Content = await GetBySeller(Paging<HoaDon>.Get(hoaDon, query).Include(x => x.ChiTietHD))
             };
         }
 
@@ -83,6 +115,66 @@ namespace ThuongMaiDienTuAPI.Services
             }
 
             return hoaDon;
+        }
+        private int GetIdSellerByIdPhanLoaiSP(int IdPhanLoaiSP)
+        {
+            int idSanPham = db.PhanLoaiSP.Find(IdPhanLoaiSP).IdSanPham;
+            return db.SanPham.Find(idSanPham).IdSeller;
+        }
+        public async Task<object> Add(int? idUser, HoaDon hoaDon)
+        {
+            hoaDon.Ngay = DateTime.Now;
+            hoaDon.TrangThai = true;
+            hoaDon.TinhTrangTT = ConstantVariable.PaymentStatus.WAIT;
+            hoaDon.IdUser = idUser;
+            Dictionary<int, HoaDon> dictionary = new Dictionary<int, HoaDon>();
+            int idSeller;
+            PhanLoaiSP phanLoaiSP;
+            foreach(var i in hoaDon.ChiTietHD)
+            {
+                phanLoaiSP = db.PhanLoaiSP.Find(i.IdPhanLoaiSP);
+                idSeller = db.SanPham.Find(phanLoaiSP.IdSanPham).IdSeller;
+                if (!dictionary.ContainsKey(idSeller))
+                {
+                    dictionary.Add(idSeller, new HoaDon(hoaDon));
+                    dictionary[idSeller].IdSeller = idSeller;
+                    dictionary[idSeller].TongTien = 0;
+                }
+                ChiTietHD chiTietHD = new ChiTietHD();
+                chiTietHD.IdPhanLoaiSP = i.IdPhanLoaiSP;
+                chiTietHD.SoLuong = i.SoLuong;
+                chiTietHD.Gia = phanLoaiSP.GiaBan;
+                chiTietHD.GiaKM = phanLoaiSP.GiaKM;
+                dictionary[idSeller].ChiTietHD.Add(chiTietHD);
+                if (chiTietHD.GiaKM != null)
+                    dictionary[idSeller].TongTien += ((int)chiTietHD.GiaKM * (int)chiTietHD.SoLuong);
+                else
+                    dictionary[idSeller].TongTien += ((int)chiTietHD.Gia * (int)chiTietHD.SoLuong);
+            }
+            List<HoaDon> list = new List<HoaDon>();
+            foreach(var i in dictionary)
+            {
+                foreach(var j in i.Value.ChiTietHD)
+                {
+                    phanLoaiSP = await db.PhanLoaiSP.FindAsync(j.IdPhanLoaiSP);
+                    phanLoaiSP.SoLuong-=(int)j.SoLuong;
+                    if (phanLoaiSP.SoLuong == 0)
+                    {
+                        //-------------Thong bao het hang-----------------
+                        ThongBaoService thongBaoService = new ThongBaoService(db);
+                        int idUserSeller = (await db.User.Where(x => x.IdSeller == i.Value.IdSeller).FirstOrDefaultAsync()).IdUser;
+                        await thongBaoService.SendForEmptyProduct(idUserSeller, j.IdPhanLoaiSP);
+                    }
+                }
+                await db.HoaDon.AddAsync(i.Value);
+                list.Add(i.Value);
+            }
+            await db.SaveChangesAsync();
+            return new
+            {
+                Total = list.Count(),
+                Content = list
+            };
         }
     }
 }

@@ -7,6 +7,24 @@ namespace ThuongMaiDienTuAPI.Entities
 {
     public class HoaDon
     {
+        public HoaDon()
+        {
+            ChiTietHD = new HashSet<ChiTietHD>();
+        }
+        public HoaDon(HoaDon hoaDon)
+        {
+            Ngay = hoaDon.Ngay;
+            TrangThai = hoaDon.TrangThai;
+            IdUser = hoaDon.IdUser;
+            DiaChiKH = hoaDon.DiaChiKH;
+            GhiChu = hoaDon.GhiChu;
+            TenKH = hoaDon.TenKH;
+            Mail = hoaDon.Mail;
+            SDT = hoaDon.SDT;
+            PhuongThucTT = hoaDon.PhuongThucTT;
+            TinhTrangTT = hoaDon.TinhTrangTT;
+            ChiTietHD = new HashSet<ChiTietHD>();
+        }
         [Key]
         public int IdHoaDon { get; set;  }
         public DateTime Ngay { get; set; }
@@ -30,6 +48,6 @@ namespace ThuongMaiDienTuAPI.Entities
         public string PhuongThucTT { get; set; }
         [MaxLength(20)]
         public string TinhTrangTT { get; set; }
-        public ICollection<ChiTietHD> ChiTietHD { get; set; } = new HashSet<ChiTietHD>();
+        public ICollection<ChiTietHD> ChiTietHD { get; set; }
     }
 }

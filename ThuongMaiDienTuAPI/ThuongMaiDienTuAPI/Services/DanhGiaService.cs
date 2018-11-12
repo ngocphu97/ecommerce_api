@@ -18,6 +18,22 @@ namespace ThuongMaiDienTuAPI.Services
             this.db = db;
         }
 
+        public async Task<bool> Add(int idUser,DanhGia danhGia)
+        {
+            bool isHad = db.HoaDon.Where(
+                x => x.IdUser == idUser &&
+                //x.ChiTietHD.Any(y => y.IdSanPham == danhGia.IdSanPham) &&
+                x.TinhTrangTT == ConstantVariable.PaymentStatus.COMPLETED &&
+                x.TrangThai == true).Any();
+            if (!isHad)
+                return false;
+            danhGia.Ngay = DateTime.Now;
+            danhGia.IdUser = idUser;
+            await db.DanhGia.AddAsync(danhGia);
+            await db.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<object> Get(DanhGiaQuery query)
         {
             var danhGia = Sorting<DanhGia>.Get(Filtering(db.DanhGia, query), query);

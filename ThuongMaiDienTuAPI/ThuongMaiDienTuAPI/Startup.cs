@@ -36,7 +36,10 @@ namespace ThuongMaiDienTuAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper();
-            services.AddMvc();
+            services.AddMvc(opts=>
+            {
+                opts.Filters.Add(typeof(ValidateModelAttribute));
+            });
             //--------Swagger UI------------------
             services.AddSwaggerGen(x => x.SwaggerDoc("v1", new Info
             {
@@ -81,7 +84,6 @@ namespace ThuongMaiDienTuAPI
             services.AddScoped<IPageService, PageService>();
             services.AddScoped<IThoiGianSPHotService, ThoiGianSPHotService>();
             services.AddScoped<IThongBaoService, ThongBaoService>();
-            services.AddScoped<IThongKeHoaDonService, ThongKeHoaDonService>();
 
         }
 
@@ -93,7 +95,7 @@ namespace ThuongMaiDienTuAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            
             //------Swagger-----------
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -101,7 +103,9 @@ namespace ThuongMaiDienTuAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Contacts API V1");
             });
             //------Authentication------------
+            //!!! Important use Auth need before use Mvc. 
             app.UseAuthentication();
+            app.UseMvc();
             app.UseCors("EnableCORS");
         }
     }

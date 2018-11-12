@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 using ThuongMaiDienTuAPI.Interfaces;
 using ThuongMaiDienTuAPI.Dtos;
 using ThuongMaiDienTuAPI.Dtos.Queries;
+using ThuongMaiDienTuAPI.Helpers;
+using ThuongMaiDienTuAPI.Entities;
+
 namespace ThuongMaiDienTuAPI.Controllers
 {
     [Authorize]
@@ -25,15 +28,30 @@ namespace ThuongMaiDienTuAPI.Controllers
         [Route("getbyuser")]
         public async Task<IActionResult> GetByUser([FromQuery] HoaDonQuery query)
         {
-            int idCustomer = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "IdUser").Value);
+            int idCustomer = User.GetIdCustomer();
             return Ok(await hoaDonService.GetByCustomer(idCustomer,query));
         }
+        [Authorize(Roles ="SELLER")]
         [HttpGet]
         [Route("getbyseller")]
         public async Task<IActionResult> GetBySeller([FromQuery] HoaDonQuery query)
         {
-            int idSeller = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "IdSeller").Value);
+            int idSeller = User.GetIdSeller();
             return Ok(await hoaDonService.GetBySeller(idSeller, query));
         }
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("add")]
+        public async Task<IActionResult> Add([FromBody] HoaDonDto hoaDonDto)
+        {
+            int? idUser = null;
+            try
+            {
+                idUser = User.GetIdUser();
+            }
+            catch(Exception ex){ } 
+            return Ok(await hoaDonService.Add(idUser,mapper.Map<HoaDon>(hoaDonDto)));
+        }
+
     }
 }

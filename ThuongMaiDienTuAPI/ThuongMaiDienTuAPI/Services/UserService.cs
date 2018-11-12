@@ -9,6 +9,8 @@ using ThuongMaiDienTuAPI.Helpers;
 using ThuongMaiDienTuAPI.Dtos.Queries;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using System.Diagnostics;
+
 namespace ThuongMaiDienTuAPI.Services
 {
     public class UserService : IUserService
@@ -60,7 +62,8 @@ namespace ThuongMaiDienTuAPI.Services
         public async Task<User> Login(LoginDto login)
         {
             User user = await Get(login.TenDN);
-            if (user == null||user.Matkhau!=Encryptor.MD5Hash(login.Matkhau))
+            //Debug.WriteLine(user.IdUser + " " + user.TenDN + " " + user.Matkhau);
+            if (user == null||user.Matkhau.Trim()!=Encryptor.MD5Hash(login.Matkhau))
                 return null;
             return user;
         }

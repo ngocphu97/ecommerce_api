@@ -8,7 +8,6 @@ namespace ThuongMaiDienTuAPI.Dtos
     public class SanPhamDto
     {
         public string TenSP { get; set; }
-        public string TenKhac { get; set; }
 
         public CauHinhDto CauHinh { get; set; }
 
