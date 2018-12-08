@@ -7,7 +7,7 @@ namespace ThuongMaiDienTuAPI.Dtos.Queries
 {
     public class DanhMucSPQuery:IPaging,ISorting
     {
-        public bool? TinhTrang { get; set; } = null;
+        public bool? TinhTrang { get; set; }
         public string SortBy { get; set; } = "TenDM";
         public string Order { get; set; } = "asc";
         public int PageSize { get; set; } = 20;

@@ -20,6 +20,8 @@ namespace ThuongMaiDienTuAPI.Services
             this.db = db;
         }
 
+        #region Events
+
         public async Task<object> Get(SellerQuery query)
         {
             var sellers = Sorting<Seller>.Get(Filtering(db.Seller, query), query);
@@ -114,5 +116,6 @@ namespace ThuongMaiDienTuAPI.Services
 
             return sellers;
         }
+        #endregion
     }
 }

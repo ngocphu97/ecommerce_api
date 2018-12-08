@@ -19,6 +19,8 @@ namespace ThuongMaiDienTuAPI.Services
             this.db = db;
         }
 
+        #region Events
+
         public async Task<bool> Add(int idSeller,SanPham sanPham)
         {
 
@@ -132,5 +134,6 @@ namespace ThuongMaiDienTuAPI.Services
             }
             return sp;
         }
+        #endregion
     }
 }

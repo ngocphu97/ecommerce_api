@@ -30,5 +30,14 @@ namespace ThuongMaiDienTuAPI.Controllers
         {
             return Ok(await danhMucSPService.Get(query));
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("getall")]
+        public async Task<IActionResult> GetAll()
+        {
+            var danhmuc = await danhMucSPService.Get(new DanhMucSPQuery());
+            return Ok(danhmuc);
+        }
     }
 }
