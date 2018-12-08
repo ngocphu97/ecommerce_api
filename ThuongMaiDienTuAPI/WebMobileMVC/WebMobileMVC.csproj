@@ -249,6 +249,17 @@
     <Content Remove="wwwroot\assets\images\video-covers\01.jpg" />
     <Content Remove="wwwroot\assets\images\video-covers\02.jpg" />
     <Content Remove="wwwroot\assets\images\video-covers\03.jpg" />
+    <Content Remove="Views\Customer\Home\Contact.cshtml" />
+    <Content Remove="Views\Customer\Home\Index.cshtml" />
+    <Content Remove="Views\Customer\Home\Privacy.cshtml" />
+    <Content Remove="Views\Customer\Shared\_Layout.cshtml" />
+    <Content Remove="Views\Customer\Shared\_ValidationScriptsPartial.cshtml" />
+    <Content Remove="Views\Test\IndexHTMLFile.cshtml" />
+    <Content Remove="Views\Test\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\Test\EmptyHTMLFile.html" />
+    <None Remove="Views\Test\Index.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\assets\css\bootstrap.min.css" />
@@ -493,6 +504,16 @@
     <None Include="wwwroot\assets\images\video-covers\03.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Home\" />
+    <Folder Include="Views\Shared\" />
     <Folder Include="Views\ThanhToan\" />
+    <Folder Include="Views\Product\" />
+    <Folder Include="Views\Cart\" />
+    <Folder Include="Views\Checkout\" />
+    <Folder Include="Views\Account\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\TestHomeController.cs" />
+    <Compile Remove="Controllers\ProductDetailController.cs" />
   </ItemGroup>
 </Project>

@@ -54,3 +54,17 @@ D:/Project/PTTKHTDN/ecommerce_api/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/obj/Debu
 /Users/LamHan/ProjectASP/HTTT/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/obj/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.dll
 /Users/LamHan/ProjectASP/HTTT/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/obj/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.pdb
 /Users/LamHan/ProjectASP/HTTT/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/obj/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.csprojAssemblyReference.cache
+/Users/vlamtu/Projects/ecommerce_api.git/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/bin/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.deps.json
+/Users/vlamtu/Projects/ecommerce_api.git/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/bin/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.runtimeconfig.json
+/Users/vlamtu/Projects/ecommerce_api.git/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/bin/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.runtimeconfig.dev.json
+/Users/vlamtu/Projects/ecommerce_api.git/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/bin/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.dll
+/Users/vlamtu/Projects/ecommerce_api.git/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/bin/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.pdb
+/Users/vlamtu/Projects/ecommerce_api.git/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/obj/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.csprojAssemblyReference.cache
+/Users/vlamtu/Projects/ecommerce_api.git/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/obj/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.csproj.CoreCompileInputs.cache
+/Users/vlamtu/Projects/ecommerce_api.git/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/obj/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.RazorAssemblyInfo.cache
+/Users/vlamtu/Projects/ecommerce_api.git/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/obj/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.RazorAssemblyInfo.cs
+/Users/vlamtu/Projects/ecommerce_api.git/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/obj/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.AssemblyInfoInputs.cache
+/Users/vlamtu/Projects/ecommerce_api.git/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/obj/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.AssemblyInfo.cs
+/Users/vlamtu/Projects/ecommerce_api.git/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/obj/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.RazorTargetAssemblyInfo.cache
+/Users/vlamtu/Projects/ecommerce_api.git/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/obj/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.dll
+/Users/vlamtu/Projects/ecommerce_api.git/ThuongMaiDienTuAPI/ThuongMaiDienTuAPI/obj/Debug/netcoreapp2.1/ThuongMaiDienTuAPI.pdb
