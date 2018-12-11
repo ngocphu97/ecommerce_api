@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ThuongMaiDienTuAPI.Interfaces;
+﻿using ThuongMaiDienTuAPI.Interfaces;
 namespace ThuongMaiDienTuAPI.Dtos.Queries
 {
     public class HoaDonQuery : IPaging, ISorting

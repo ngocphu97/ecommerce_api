@@ -30,7 +30,7 @@ namespace ThuongMaiDienTuAPI.Services
             if (query.TenPage != null)
             {
                 pages = from x in pages
-                        where x.TenPage.Contains(query.TenPage)
+                        where x.Ten.Contains(query.TenPage)
                         select x;
             }
 

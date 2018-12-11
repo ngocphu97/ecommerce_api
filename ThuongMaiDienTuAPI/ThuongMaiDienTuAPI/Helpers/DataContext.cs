@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ThuongMaiDienTuAPI.Entities;
 namespace ThuongMaiDienTuAPI.Helpers
 {
@@ -20,8 +16,14 @@ namespace ThuongMaiDienTuAPI.Helpers
         public virtual DbSet<DiaChi> DiaChi { get; set; }
         public virtual DbSet<HoaDon> HoaDon { get; set; }
         //----------------------------------------------------------------------------------
+        public virtual DbSet<KhuyenMai> KhuyenMai { get; set; }
+        public virtual DbSet<ChiTietKhuyenMai> ChiTietKhuyenMai { get; set; }
+        public virtual DbSet<DangKyDichVu> DangKyDichVu { get; set; }
+        public virtual DbSet<GoiDichVu> GoiDichVu { get; set; }
+        public virtual DbSet<QuangCao> QuangCao { get; set; }
+        public virtual DbSet<LoaiQuangCao> LoaiQuangCao { get; set; }
+
         public virtual DbSet<ThongBao> ThongBao { get; set; }
-        public virtual DbSet<ThoiGianSPHot> ThoiGianSPHot { get; set; }
         public virtual DbSet<CauHinh> CauHinh { get; set; }
         public virtual DbSet<PhanLoaiSP> PhanLoaiSP { get; set; }
         public virtual DbSet<SanPham> SanPham { get; set; }

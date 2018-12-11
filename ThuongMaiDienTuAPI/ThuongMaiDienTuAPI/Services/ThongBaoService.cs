@@ -54,7 +54,7 @@ namespace ThuongMaiDienTuAPI.Services
             PhanLoaiSP phanLoaiSP = await db.PhanLoaiSP.FindAsync(idPhanLoaiSP);
             SanPham sanPham = await db.SanPham.FindAsync(phanLoaiSP.IdSanPham);
 
-            string content = "Sản phẩm " + sanPham.TenSP + " - " + phanLoaiSP.Mau + " đã hết hàng.";
+            string content = "Sản phẩm " + sanPham.Ten + " - " + phanLoaiSP.Mau + " đã hết hàng.";
             await Add(idUser, content);
         }
 

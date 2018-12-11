@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using ThuongMaiDienTuAPI.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using ThuongMaiDienTuAPI.Dtos;
 using ThuongMaiDienTuAPI.Dtos.Queries;
+using ThuongMaiDienTuAPI.Entities;
+using ThuongMaiDienTuAPI.Interfaces;
 namespace ThuongMaiDienTuAPI.Controllers
 {
     [Authorize]
@@ -38,6 +35,17 @@ namespace ThuongMaiDienTuAPI.Controllers
         {
             var danhmuc = await danhMucSPService.Get(new DanhMucSPQuery());
             return Ok(danhmuc);
+        }
+
+
+        [HttpPost]
+        [Route("add")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Add([FromBody] DanhMucSPDto danhMucSPDto)
+        {
+            if (await danhMucSPService.Add(mapper.Map<DanhMucSP>(danhMucSPDto)))
+                return Ok();
+            return BadRequest();
         }
     }
 }

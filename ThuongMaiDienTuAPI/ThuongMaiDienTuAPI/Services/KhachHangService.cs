@@ -31,7 +31,7 @@ namespace ThuongMaiDienTuAPI.Services
             if (query.TenKh != null)
             {
                 kh = from x in kh
-                     where x.TenKH.Contains(query.TenKh)
+                     where x.Ten.Contains(query.TenKh)
                      select x;
             }
             if (query.SDT != null)

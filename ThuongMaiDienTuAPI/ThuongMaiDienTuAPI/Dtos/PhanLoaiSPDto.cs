@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ThuongMaiDienTuAPI.Dtos
+﻿namespace ThuongMaiDienTuAPI.Dtos
 {
     public class PhanLoaiSPDto
     {
@@ -12,5 +7,6 @@ namespace ThuongMaiDienTuAPI.Dtos
         public int GiaBan { get; set; }
         public int GiaGoc { get; set; }
         public string Mau { get; set; }
+        public int IdKhuyenMai { get; set; }
     }
 }

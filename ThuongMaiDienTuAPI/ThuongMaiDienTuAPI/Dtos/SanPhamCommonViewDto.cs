@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ThuongMaiDienTuAPI.Entities;
 
 namespace ThuongMaiDienTuAPI.Dtos
 {
     public class SanPhamCommonViewDto
     {
-        public int IdSanPham { get; set; }
-        public string TenSP { get; set; }
+        public int Id { get; set; }
+        public string Ten { get; set; }
         public string TenKhac { get; set; }
 
         public int IdCauHinh { get; set; }

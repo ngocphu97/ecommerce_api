@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ThuongMaiDienTuAPI.Entities;
 using ThuongMaiDienTuAPI.Dtos;
+using ThuongMaiDienTuAPI.Entities;
 namespace ThuongMaiDienTuAPI.Helpers
 {
     /// <summary>
@@ -18,6 +14,10 @@ namespace ThuongMaiDienTuAPI.Helpers
             CreateMap<UserDto,User>();
             CreateMap<DanhMucSP, DanhMucSPDto>();
             CreateMap<DanhMucSPDto, DanhMucSP>();
+            CreateMap<KhuyenMai, KhuyenMaiDto>();
+            CreateMap<KhuyenMaiDto, KhuyenMai>();
+            CreateMap<QuangCao, QuangCaoDto>();
+            CreateMap<QuangCaoDto, QuangCao>();
             CreateMap<DiaChi, DiaChiDto>();
             CreateMap<DiaChiDto, DiaChi>();
             CreateMap<RegisterDto, User>();

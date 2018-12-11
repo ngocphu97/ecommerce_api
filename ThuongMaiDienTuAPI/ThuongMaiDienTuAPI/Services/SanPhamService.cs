@@ -35,7 +35,7 @@ namespace ThuongMaiDienTuAPI.Services
                     sanPham.IdSeller = idSeller;
                     await db.SanPham.AddAsync(sanPham);
                     await db.SaveChangesAsync();
-                    sanPham.TenKhac = sanPham.TenSP.ConvertToUnSign3().Replace(' ', '-') + ":" + sanPham.IdSanPham.ToString();
+                    sanPham.TenKhac = sanPham.Ten.ConvertToUnSign3().Replace(' ', '-') + ":" + sanPham.Id.ToString();
                     await db.SaveChangesAsync();
                     transaction.Commit();
                     return true;
@@ -60,7 +60,7 @@ namespace ThuongMaiDienTuAPI.Services
 
         public async Task<bool> Delete(int idSeller,int idSanPham)
         {
-            SanPham sanPham = await db.SanPham.Where(x => x.IdSanPham == idSanPham).Include(x => x.PhanLoaiSP).FirstOrDefaultAsync();
+            SanPham sanPham = await db.SanPham.Where(x => x.Id == idSanPham).Include(x => x.PhanLoaiSP).FirstOrDefaultAsync();
             if (sanPham == null || sanPham.IdSeller != idSeller)
                 return false;
             db.SanPham.Remove(sanPham);
@@ -97,7 +97,7 @@ namespace ThuongMaiDienTuAPI.Services
             if (query.TenSP != null)
             {
                 sp = from x in sp
-                     where x.TenSP.Contains(query.TenSP)
+                     where x.Ten.Contains(query.TenSP)
                      select x;
             }
             if (query.TrangThai != null)

@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 namespace ThuongMaiDienTuAPI.Entities
 {
     public class Page
     {
         [Key]
-        public int IdPage { get; set; }
-        public string TenPage { get; set; }
+        public int Id { get; set; }
+        [MaxLength(256)]
+        [Required]
+        public string Ten { get; set; }
+        [MaxLength(256)]
+        [Required]
         public string TenKhac { get; set; }
+        [Required]
         public string NoiDung { get; set; }
         public bool TinhTrang { get; set; }
     }

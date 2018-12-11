@@ -30,5 +30,10 @@ namespace ThuongMaiDienTuAPI.Helpers
             public static string UNSEEN = "UNSEEN";
             public static string SEEN = "SEEN";
         }
+        public static class PromotionStatus
+        {
+            public static string COMMON = "COMMON";
+            public static string INDIVIDUAL = "INDIVIDUAL";
+        }
     }
 }

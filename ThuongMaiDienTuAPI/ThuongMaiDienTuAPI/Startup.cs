@@ -82,7 +82,6 @@ namespace ThuongMaiDienTuAPI
             services.AddScoped<IDanhGiaService, DanhGiaService>();
             services.AddScoped<IHoaDonService, HoaDonService>();
             services.AddScoped<IPageService, PageService>();
-            services.AddScoped<IThoiGianSPHotService, ThoiGianSPHotService>();
             services.AddScoped<IThongBaoService, ThongBaoService>();
 
         }

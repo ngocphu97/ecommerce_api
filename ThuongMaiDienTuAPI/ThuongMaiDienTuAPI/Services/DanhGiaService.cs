@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.EntityFrameworkCore;
 using ThuongMaiDienTuAPI.Dtos.Queries;
-using ThuongMaiDienTuAPI.Interfaces;
 using ThuongMaiDienTuAPI.Entities;
 using ThuongMaiDienTuAPI.Helpers;
-using Microsoft.EntityFrameworkCore;
+using ThuongMaiDienTuAPI.Interfaces;
 namespace ThuongMaiDienTuAPI.Services
 {
     public class DanhGiaService : IDanhGiaService
@@ -22,7 +20,6 @@ namespace ThuongMaiDienTuAPI.Services
         {
             bool isHad = db.HoaDon.Where(
                 x => x.IdUser == idUser &&
-                //x.ChiTietHD.Any(y => y.IdSanPham == danhGia.IdSanPham) &&
                 x.TinhTrangTT == ConstantVariable.PaymentStatus.COMPLETED &&
                 x.TrangThai == true).Any();
             if (!isHad)
@@ -46,18 +43,23 @@ namespace ThuongMaiDienTuAPI.Services
 
         private IQueryable<DanhGia> Filtering(IQueryable<DanhGia> danhGia,DanhGiaQuery query)
         {
-            if (query.FromDanhGia != null)
+            if(query.IdSeller != -1)
             {
-                danhGia = danhGia.Where(x => x.Danhgia >= query.FromDanhGia);
+                danhGia = danhGia.Where(x => x.IdSeller == query.IdSeller);
+                if (query.FromDanhGia != null)
+                {
+                    danhGia = danhGia.Where(x => x.Danhgia >= query.FromDanhGia);
+                }
+                if (query.ToDanhGia != null)
+                {
+                    danhGia = danhGia.Where(x => x.Danhgia <= query.ToDanhGia);
+                }
             }
-            if (query.ToDanhGia != null)
+            else
             {
-                danhGia = danhGia.Where(x => x.Danhgia <= query.ToDanhGia);
+                danhGia = null;
             }
-            if (query.IdSanPham != null)
-            {
-                danhGia = danhGia.Where(x => x.IdSanPham == query.IdSanPham);
-            }
+
             return danhGia;
         }
     }

@@ -78,7 +78,7 @@ namespace ThuongMaiDienTuAPI.Services
                     await db.SaveChangesAsync();
                     user.TrangThai = true;
                     user.LoaiUser = ConstantVariable.UserPermission.CUSTOMER;
-                    user.IdKhachHang = khachHang.IdKhachHang;
+                    user.IdKhachHang = khachHang.Id;
                     await db.User.AddAsync(user);
                     await db.SaveChangesAsync();
                     transaction.Commit();

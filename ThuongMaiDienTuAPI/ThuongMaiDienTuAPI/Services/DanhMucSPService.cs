@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ThuongMaiDienTuAPI.Dtos.Queries;
-using ThuongMaiDienTuAPI.Interfaces;
 using ThuongMaiDienTuAPI.Entities;
 using ThuongMaiDienTuAPI.Helpers;
-using Microsoft.EntityFrameworkCore;
+using ThuongMaiDienTuAPI.Interfaces;
 namespace ThuongMaiDienTuAPI.Services
 {
     public class DanhMucSPService : IDanhMucSPService
@@ -32,6 +30,13 @@ namespace ThuongMaiDienTuAPI.Services
                 danhMucSP = danhMucSP.Where(x => x.TinhTrang == query.TinhTrang);
             }
             return danhMucSP;
+        }
+
+        public async Task<bool> Add(DanhMucSP danhMucSP)
+        {
+            await db.DanhMucSP.AddAsync(danhMucSP);
+            await db.SaveChangesAsync();
+            return true;
         }
     }
 }

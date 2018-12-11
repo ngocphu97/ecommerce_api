@@ -52,7 +52,7 @@ namespace ThuongMaiDienTuAPI.Services
                     seller.NgayDK = DateTime.Now;
                     await db.Seller.AddAsync(seller);
                     await db.SaveChangesAsync();
-                    user.IdSeller = seller.IdSeller;
+                    user.IdSeller = seller.Id;
                     await db.SaveChangesAsync();
                     //-----------Send Mail-----------------
                     string code = StringExtensions.RandomString(30);
@@ -90,7 +90,7 @@ namespace ThuongMaiDienTuAPI.Services
             if (query.TenSeller != null)
             {
                 sellers = from x in sellers
-                          where x.TenSeller.Contains(query.TenSeller)
+                          where x.Ten.Contains(query.TenSeller)
                           select x;
             }
             if (query.CMND != null)

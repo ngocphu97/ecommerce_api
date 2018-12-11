@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 namespace ThuongMaiDienTuAPI.Entities
 {
     public class PhanLoaiSP
     {
         [Key]
-        public int IdPhanLoaiSP { get; set; }
+        public int Id { get; set; }
+        [Required]
         public int IdSanPham { get; set; }
         public int SoLuong { get; set; }
         public int? GiaKM { get; set; }
         public int GiaBan { get; set; }
         public int GiaGoc { get; set; }
+        [MaxLength(20)]
         public string Mau { get; set; }
+
+        public int IdKhuyenMai { get; set; }
     }
 }

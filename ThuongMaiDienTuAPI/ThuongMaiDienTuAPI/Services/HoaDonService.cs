@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.EntityFrameworkCore;
 using ThuongMaiDienTuAPI.Dtos.Queries;
-using ThuongMaiDienTuAPI.Interfaces;
 using ThuongMaiDienTuAPI.Entities;
 using ThuongMaiDienTuAPI.Helpers;
-using Microsoft.EntityFrameworkCore;
+using ThuongMaiDienTuAPI.Interfaces;
 namespace ThuongMaiDienTuAPI.Services
 {
     public class HoaDonService : IHoaDonService
@@ -34,7 +33,7 @@ namespace ThuongMaiDienTuAPI.Services
         {
             return await hoaDon.Select(x => new
             {
-                IdHoaDon = x.IdHoaDon,
+                IdHoaDon = x.Id,
                 IdSeller = x.IdSeller,
                 IdUser = x.IdUser,
                 TenKH = x.TenKH,
@@ -73,7 +72,7 @@ namespace ThuongMaiDienTuAPI.Services
         {
             if (query.IdUser != null)
             {
-                hoaDon = hoaDon.Where(x => x.IdHoaDon == query.IdUser);
+                hoaDon = hoaDon.Where(x => x.Id == query.IdUser);
             }
             if (query.IdSeller != null)
             {
@@ -121,7 +120,7 @@ namespace ThuongMaiDienTuAPI.Services
             int idSanPham = db.PhanLoaiSP.Find(IdPhanLoaiSP).IdSanPham;
             return db.SanPham.Find(idSanPham).IdSeller;
         }
-        public async Task<object> Add(int? idUser, HoaDon hoaDon)
+        public async Task<object> Add(int idUser, HoaDon hoaDon)
         {
             hoaDon.Ngay = DateTime.Now;
             hoaDon.TrangThai = true;
@@ -161,7 +160,7 @@ namespace ThuongMaiDienTuAPI.Services
                     phanLoaiSP.SoLuong-=(int)j.SoLuong;
                     if (phanLoaiSP.SoLuong == 0)
                     {
-                        int idUserSeller = (await db.User.Where(x => x.IdSeller == i.Value.IdSeller).FirstOrDefaultAsync()).IdUser;
+                        int idUserSeller = (await db.User.Where(x => x.IdSeller == i.Value.IdSeller).FirstOrDefaultAsync()).Id;
                         listThongBao.Add(new KeyValuePair<int, int>(idUserSeller,j.IdPhanLoaiSP));
                     }
                 }
