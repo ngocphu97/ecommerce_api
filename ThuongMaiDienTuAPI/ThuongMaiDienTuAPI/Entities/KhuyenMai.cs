@@ -11,7 +11,7 @@ namespace ThuongMaiDienTuAPI.Entities
             this.ChiTietKM = new HashSet<ChiTietKhuyenMai>();
         }
         [Key]
-        public int Id { get; set; }
+        public int IdKhuyenMai { get; set; }
         [MaxLength(256)]
         [Required]
         public string Ten { get; set; }

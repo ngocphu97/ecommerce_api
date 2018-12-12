@@ -35,7 +35,7 @@ namespace ThuongMaiDienTuAPI.Services
                     sanPham.IdSeller = idSeller;
                     await db.SanPham.AddAsync(sanPham);
                     await db.SaveChangesAsync();
-                    sanPham.TenKhac = sanPham.Ten.ConvertToUnSign3().Replace(' ', '-') + ":" + sanPham.Id.ToString();
+                    sanPham.TenKhac = sanPham.TenSP.ConvertToUnSign3().Replace(' ', '-') + ":" + sanPham.IdSanPham.ToString();
                     await db.SaveChangesAsync();
                     transaction.Commit();
                     return true;
@@ -60,7 +60,7 @@ namespace ThuongMaiDienTuAPI.Services
 
         public async Task<bool> Delete(int idSeller,int idSanPham)
         {
-            SanPham sanPham = await db.SanPham.Where(x => x.Id == idSanPham).Include(x => x.PhanLoaiSP).FirstOrDefaultAsync();
+            SanPham sanPham = await db.SanPham.Where(x => x.IdSanPham == idSanPham).Include(x => x.PhanLoaiSP).FirstOrDefaultAsync();
             if (sanPham == null || sanPham.IdSeller != idSeller)
                 return false;
             db.SanPham.Remove(sanPham);
@@ -68,14 +68,16 @@ namespace ThuongMaiDienTuAPI.Services
             return true;
         }
 
-        public async Task<object> Get(SanPhamQuery query)
+        public async Task<GetResult> Get(SanPhamQuery query)
         {
             var sanpham = Sorting<SanPham>.Get(Filtering(db.SanPham, query), query);
-            return new
+            /*return new
             {
                 Total = sanpham.Count(),
                 Content = await Paging<SanPham>.Get(sanpham, query).Include(x=>x.CauHinh).Include(x=>x.PhanLoaiSP).ToListAsync()
-            };
+            };*/
+            return new GetResult(sanpham.Count(), await Paging<SanPham>.Get(sanpham, query).Include(x => x.CauHinh).Include(x => x.PhanLoaiSP).ToListAsync());
+
         }
 
         public async Task<object> Get(int idSeller, SanPhamQuery query)
@@ -97,7 +99,7 @@ namespace ThuongMaiDienTuAPI.Services
             if (query.TenSP != null)
             {
                 sp = from x in sp
-                     where x.Ten.Contains(query.TenSP)
+                     where x.TenSP.Contains(query.TenSP)
                      select x;
             }
             if (query.TrangThai != null)

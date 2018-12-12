@@ -10,8 +10,8 @@ namespace ThuongMaiDienTuAPI.Dtos
         public string NoiDung { get; set; }
         public string Hinh { get; set; }
         public string HinhCT { get; set; }
-        public string ThoiGianBH { get; set; }
-        public string TinhTrangHang { get; set; }
+        public int ThoiGianBH { get; set; }
+        public bool TinhTrangHang { get; set; }
 
         public CauHinhDto CauHinh { get; set; }
         public List<PhanLoaiSPDto> PhanLoaiSP { get; set; }

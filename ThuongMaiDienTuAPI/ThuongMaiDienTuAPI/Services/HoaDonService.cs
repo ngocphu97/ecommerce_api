@@ -25,7 +25,7 @@ namespace ThuongMaiDienTuAPI.Services
                 Content= await Paging<HoaDon>.Get(hoaDon,query).Include(x=>x.ChiTietHD).ToListAsync()
             };
         }
-        private int GetGiaGoc(int idPhanLoaiSP)
+        private double GetGiaGoc(int idPhanLoaiSP)
         {
             return db.PhanLoaiSP.Find(idPhanLoaiSP).GiaGoc;
         }

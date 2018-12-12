@@ -28,7 +28,9 @@ namespace ThuongMaiDienTuAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Get([FromQuery]SanPhamQuery query)
         {
-            return Ok(mapper.Map<SanPhamCommonViewDto>(await sanPhamService.Get(query)));
+            GetResult rs = await sanPhamService.Get(query);
+            rs.Content = mapper.Map<List<SanPhamCommonViewDto>>((List<SanPham>)rs.Content);
+            return Ok(rs.Get());
         }
         [HttpGet]
         [Route("getbyseller")]

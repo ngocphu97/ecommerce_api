@@ -68,7 +68,7 @@ namespace ThuongMaiDienTuAPI.Services
         {
             return await khuyenMais.Select(x => new
             {
-                Id = x.Id,
+                IdKhuyenMai = x.IdKhuyenMai,
                 Ten = x.Ten,
                 IdNguoiTao = x.IdNguoiTao,
                 PhamTramKM = x.PhamTramKM,

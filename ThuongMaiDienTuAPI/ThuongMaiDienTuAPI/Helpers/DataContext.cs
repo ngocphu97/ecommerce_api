@@ -42,6 +42,9 @@ namespace ThuongMaiDienTuAPI.Helpers
 
             builder.Entity<CauHinh>().HasOne<SanPham>().WithOne(x => x.CauHinh).HasForeignKey<SanPham>(x=>x.IdCauHinh);
             builder.Entity<PhanLoaiSP>().HasOne<SanPham>().WithMany(x => x.PhanLoaiSP).HasForeignKey(x => x.IdSanPham).OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<ChiTietKhuyenMai>().HasKey(x => new { x.IdKhuyenMai, x.IDPhanLoaiSP });
+            builder.Entity<ChiTietKhuyenMai>().HasOne<KhuyenMai>().WithMany(x => x.ChiTietKM).HasForeignKey(x => x.IdKhuyenMai);
         }
     }
 }

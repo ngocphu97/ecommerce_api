@@ -4,7 +4,7 @@ namespace ThuongMaiDienTuAPI.Entities
     public class CauHinh
     {
         [Key]
-        public int Id { get; set; }
+        public int IdCauHinh { get; set; }
         [Required]
         [MaxLength(128)]
         public string ThuongHieu { get; set; }

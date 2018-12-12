@@ -9,7 +9,7 @@ namespace ThuongMaiDienTuAPI.Entities
         [Key]
         public int IdPhanLoaiSP { get; set; }
         public int? SoLuong { get; set; }
-        public int? Gia { get; set; }
-        public int? GiaKM { get; set; }
+        public double? Gia { get; set; }
+        public double? GiaKM { get; set; }
     }
 }
